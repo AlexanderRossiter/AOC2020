@@ -6,6 +6,8 @@ import java.net.*;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class InputGetter {
     private static final HttpClient client = HttpClient.newBuilder().build();
@@ -68,10 +70,24 @@ public class InputGetter {
         return sb.toString();
     }
 
+    private static ArrayList<String> getInputAsArrayList(int day, String PATH) throws IOException, InterruptedException {
+        String[] inputRaw = getInput(day, PATH).split("\n");
+        return (ArrayList<String>) Arrays.asList(inputRaw);
+    }
+
+    private static int[] getInputAsIntArray(int day, String PATH) throws IOException, InterruptedException {
+        String[] inputRaw = getInput(day, PATH).split("\n");
+        int[] inputInt = new int[inputRaw.length];
+        for (int i = 0; i < inputRaw.length; i++) {
+            inputInt[i] = Integer.parseInt(inputRaw[i]);
+        }
+        return inputInt;
+    }
+
 //    public static void main(String[] args) {
 //        try {
-//            String s = getInput(1, "/Users/ADR/Documents/AOC2020/src/main/java/com/alex/aoc2020/inputs");
-//            System.out.println(s);
+//            int[] s = getInputAsIntArray(1, "/Users/ADR/Documents/AOC2020/src/main/java/com/alex/aoc2020/inputs");
+//            System.out.println(Arrays.toString(s));
 //
 //        }
 //        catch (IOException | InterruptedException e) {
