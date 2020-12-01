@@ -70,24 +70,24 @@ public class InputGetter {
         return sb.toString();
     }
 
-    private static ArrayList<String> getInputAsArrayList(int day, String PATH) throws IOException, InterruptedException {
+    public static ArrayList<String> getInputAsArrayList(int day, String PATH) throws IOException, InterruptedException {
         String[] inputRaw = getInput(day, PATH).split("\n");
         return (ArrayList<String>) Arrays.asList(inputRaw);
     }
 
-    private static int[] getInputAsIntArray(int day, String PATH) throws IOException, InterruptedException {
+    public static ArrayList<Integer> getInputAsIntArrayList(int day, String PATH) throws IOException, InterruptedException {
         String[] inputRaw = getInput(day, PATH).split("\n");
-        int[] inputInt = new int[inputRaw.length];
-        for (int i = 0; i < inputRaw.length; i++) {
-            inputInt[i] = Integer.parseInt(inputRaw[i]);
+        ArrayList<Integer> inputInt = new ArrayList<>();
+        for (String s : inputRaw) {
+            inputInt.add(Integer.parseInt(s));
         }
         return inputInt;
     }
 
 //    public static void main(String[] args) {
 //        try {
-//            int[] s = getInputAsIntArray(1, "/Users/ADR/Documents/AOC2020/src/main/java/com/alex/aoc2020/inputs");
-//            System.out.println(Arrays.toString(s));
+//            ArrayList<Integer> s = getInputAsIntArrayList(1, "/Users/ADR/Documents/AOC2020/src/main/java/com/alex/aoc2020/inputs");
+//            System.out.println(s);
 //
 //        }
 //        catch (IOException | InterruptedException e) {
