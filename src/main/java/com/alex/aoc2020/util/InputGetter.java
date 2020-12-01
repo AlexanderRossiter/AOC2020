@@ -70,12 +70,12 @@ public class InputGetter {
         return sb.toString();
     }
 
-    public static ArrayList<String> getInputAsArrayList(int day, String PATH) throws IOException, InterruptedException {
+    public ArrayList<String> getInputAsArrayList(int day, String PATH) throws IOException, InterruptedException {
         String[] inputRaw = getInput(day, PATH).split("\n");
         return (ArrayList<String>) Arrays.asList(inputRaw);
     }
 
-    public static ArrayList<Integer> getInputAsIntArrayList(int day, String PATH) throws IOException, InterruptedException {
+    public ArrayList<Integer> getInputAsIntArrayList(int day, String PATH) throws IOException, InterruptedException {
         String[] inputRaw = getInput(day, PATH).split("\n");
         ArrayList<Integer> inputInt = new ArrayList<>();
         for (String s : inputRaw) {
