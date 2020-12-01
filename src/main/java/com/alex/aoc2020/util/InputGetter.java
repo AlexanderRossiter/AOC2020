@@ -68,17 +68,17 @@ public class InputGetter {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        try {
-            String s = getInput(1, "/Users/ADR/Documents/AOC2020/src/main/java/com/alex/aoc2020/inputs");
-            System.out.println(s);
-
-        }
-        catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
-    }
+//    public static void main(String[] args) {
+//        try {
+//            String s = getInput(1, "/Users/ADR/Documents/AOC2020/src/main/java/com/alex/aoc2020/inputs");
+//            System.out.println(s);
+//
+//        }
+//        catch (IOException | InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
 
 }
