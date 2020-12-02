@@ -8,6 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class InputGetter {
     private static final HttpClient client = HttpClient.newBuilder().build();
@@ -70,16 +71,28 @@ public class InputGetter {
         return sb.toString();
     }
 
-    public ArrayList<String> getInputAsArrayList(int day, String PATH) throws IOException, InterruptedException {
-        String[] inputRaw = getInput(day, PATH).split("\n");
-        return (ArrayList<String>) Arrays.asList(inputRaw);
+    public List<String> getInputAsList(int day, String PATH) {
+        String[] inputRaw = {};
+        try {
+            inputRaw = getInput(day, PATH).split("\n");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        List<String> inputArr = Arrays.asList(inputRaw);
+        return inputArr;
     }
 
-    public ArrayList<Integer> getInputAsIntArrayList(int day, String PATH) throws IOException, InterruptedException {
-        String[] inputRaw = getInput(day, PATH).split("\n");
+    public ArrayList<Integer> getInputAsIntArrayList(int day, String PATH){
         ArrayList<Integer> inputInt = new ArrayList<>();
-        for (String s : inputRaw) {
-            inputInt.add(Integer.parseInt(s));
+        try {
+            String[] inputRaw = getInput(day, PATH).split("\n");
+            for (String s : inputRaw) {
+                inputInt.add(Integer.parseInt(s));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
         return inputInt;
     }
