@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Day1 {
     private static final InputGetter inputGetter = new InputGetter();
-    private static final String PATH = "/Users/ADR/Documents/AOC2020/src/main/java/com/alex/aoc2020/inputs";
+    private static final String PATH = "/Users/ADR/Documents/AOC2020/src/main/resources/inputs";
 
     public static void part1() {
 
