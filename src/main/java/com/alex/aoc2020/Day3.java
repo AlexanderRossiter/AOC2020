@@ -3,18 +3,15 @@ package com.alex.aoc2020;
 import com.alex.aoc2020.util.Day3.TobogganTreeMap;
 import com.alex.aoc2020.util.InputGetter;
 
-import java.util.List;
 
 public class Day3 {
     private static final InputGetter inputGetter = new InputGetter();
     private static final String PATH = "/Users/ADR/Documents/AOC2020/src/main/resources/inputs";
-    private static final List<String> input = inputGetter.getInputAsList(3, PATH);
-    private static final TobogganTreeMap map = new TobogganTreeMap(input);
+    private static final TobogganTreeMap map = new TobogganTreeMap(inputGetter.getInputAsList(3, PATH));
 
 
     public static void part1() {
-        int count = map.checkSlope(3, 1);
-        System.out.println(String.format("Part1: %d trees\n", count));
+        System.out.println(String.format("Part1: %d trees\n", map.checkSlope(3, 1)));
     }
 
     public static void part2() {
