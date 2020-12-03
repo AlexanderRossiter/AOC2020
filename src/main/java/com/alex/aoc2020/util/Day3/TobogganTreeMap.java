@@ -1,4 +1,4 @@
-package com.alex.aoc2020.util.Day1;
+package com.alex.aoc2020.util.Day3;
 
 import java.util.List;
 

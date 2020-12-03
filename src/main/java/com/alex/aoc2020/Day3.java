@@ -1,6 +1,6 @@
 package com.alex.aoc2020;
 
-import com.alex.aoc2020.util.Day1.TobogganTreeMap;
+import com.alex.aoc2020.util.Day3.TobogganTreeMap;
 import com.alex.aoc2020.util.InputGetter;
 
 import java.util.List;
