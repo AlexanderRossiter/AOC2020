@@ -83,10 +83,10 @@ public class InputGetter {
         return inputArr;
     }
 
-    public ArrayList<Integer> getInputAsIntArrayList(int day, String PATH){
+    public ArrayList<Integer> getInputAsIntArrayList(int day, String PATH, String splitStr){
         ArrayList<Integer> inputInt = new ArrayList<>();
         try {
-            String[] inputRaw = getInput(day, PATH).split("\n");
+            String[] inputRaw = getInput(day, PATH).split(splitStr);
             for (String s : inputRaw) {
                 inputInt.add(Integer.parseInt(s));
             }
@@ -96,6 +96,11 @@ public class InputGetter {
         }
         return inputInt;
     }
+
+    public ArrayList<Integer> getInputAsIntArrayList(int day, String PATH){
+        return getInputAsIntArrayList(day, PATH, "\n");
+    }
+
 
 //    public static void main(String[] args) {
 //        try {
