@@ -71,22 +71,25 @@ public class InputGetter {
         return sb.toString();
     }
 
-    public List<String> getInputAsList(int day, String PATH) {
+    public List<String> getInputAsList(int day, String PATH, String splitStr) {
         String[] inputRaw = {};
         try {
-            inputRaw = getInput(day, PATH).split("\n");
+            inputRaw = getInput(day, PATH).split(splitStr);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-        List<String> inputArr = Arrays.asList(inputRaw);
-        return inputArr;
+        return Arrays.asList(inputRaw);
     }
 
-    public ArrayList<Integer> getInputAsIntArrayList(int day, String PATH){
+    public List<String> getInputAsList(int day, String PATH) {
+        return getInputAsList(day, PATH, "\n");
+    }
+
+    public ArrayList<Integer> getInputAsIntArrayList(int day, String PATH, String splitStr){
         ArrayList<Integer> inputInt = new ArrayList<>();
         try {
-            String[] inputRaw = getInput(day, PATH).split("\n");
+            String[] inputRaw = getInput(day, PATH).split(splitStr);
             for (String s : inputRaw) {
                 inputInt.add(Integer.parseInt(s));
             }
@@ -96,6 +99,11 @@ public class InputGetter {
         }
         return inputInt;
     }
+
+    public ArrayList<Integer> getInputAsIntArrayList(int day, String PATH){
+        return getInputAsIntArrayList(day, PATH, "\n");
+    }
+
 
 //    public static void main(String[] args) {
 //        try {
