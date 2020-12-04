@@ -5,5 +5,18 @@ import java.util.List;
 
 public class AStarNode {
     private List<AStarNode> neighbours = new ArrayList<AStarNode>();
+    private int index;
+    public final boolean isStart = false;
+    public final boolean isEnd = false;
+    public double fScore = Double.POSITIVE_INFINITY;
+    public double gScore = Double.POSITIVE_INFINITY;
 
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int i) {
+        index = i;
+    }
 }
