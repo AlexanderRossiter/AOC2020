@@ -42,7 +42,6 @@ public class Plane {
         for (int seatId = 0; seatId < nRow * 8 - 1; seatId++) {
             i = seatId / nCol;
             j = seatId % nCol;
-            System.out.println(String.format("%d %d", i, j));
             if (!seatFull[i][j] &&
                     seatFull[getRowFromSeatId(seatId+1)][getColFromSeatId(seatId+1)] &&
                     seatFull[getRowFromSeatId(seatId-1)][getColFromSeatId(seatId+-1)]) {
