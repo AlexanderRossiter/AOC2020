@@ -9,12 +9,39 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class InputGetter {
     private static final HttpClient client = HttpClient.newBuilder().build();
 
 
     public static String getInput(int day, String rootPath) throws IOException, InterruptedException {
+        rootPath = String.format("%s/%d", rootPath, day);
+        String fileoutName = String.format("%s/input.txt", rootPath);
+        File f = new File(fileoutName);
+
+        if (!f.exists()) {
+            generateDirectoryStructure(rootPath);
+            try {
+                HttpResponse<String> response = getResponseFromServer(day);
+                writeFile(fileoutName, response.body());
+                return response.body();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                return readFile(f);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+
+    }
+
+    private static HttpResponse<String> getResponseFromServer(int day) throws IOException, InterruptedException {
         String session = getSession();
         String urlStr = String.format("https://adventofcode.com/2020/day/%d/input", day);
         HttpRequest request = HttpRequest.newBuilder()
@@ -22,16 +49,8 @@ public class InputGetter {
                 .header("Cookie", String.format("session=%s", session))
                 .build();
 
-        rootPath = String.format("%s/%d", rootPath, day);
-        generateDirectoryStructure(rootPath);
 
-        String fileoutName = String.format("%s/input.txt", rootPath);
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        writeFile(fileoutName, response.body());
-
-        return response.body();
-
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
     public static void generateDirectoryStructure(String rootPath) {
@@ -53,6 +72,18 @@ public class InputGetter {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+
+    private static String readFile(File f) throws FileNotFoundException {
+        Scanner myReader = new Scanner(f);
+        StringBuilder sb = new StringBuilder();
+        while (myReader.hasNextLine()) {
+            sb.append(myReader.nextLine());
+            sb.append("\n");
+
+        }
+        myReader.close();
+        return sb.toString();
     }
 
     private static String getSession() throws IOException {
@@ -106,14 +137,8 @@ public class InputGetter {
 
 
 //    public static void main(String[] args) {
-//        try {
-//            ArrayList<Integer> s = getInputAsIntArrayList(1, "/Users/ADR/Documents/AOC2020/src/main/java/com/alex/aoc2020/inputs");
-//            System.out.println(s);
-//
-//        }
-//        catch (IOException | InterruptedException e) {
-//            e.printStackTrace();
-//        }
+//        List<String> s = getInputAsList(1, "/Users/ADR/Documents/AOC2020/src/main/resources/inputs");
+//        System.out.println(s);
 //
 //    }
 
