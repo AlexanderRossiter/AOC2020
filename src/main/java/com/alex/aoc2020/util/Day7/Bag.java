@@ -1,9 +1,6 @@
 package com.alex.aoc2020.util.Day7;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Hashtable;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,6 +68,15 @@ public class Bag {
 
     public String getColour() {
         return colour;
+    }
+
+    public List<String> getBagsCanContain() {
+        Enumeration<String> e = coloursCanContain.keys();
+        return new ArrayList<>(Collections.list(e));
+    }
+
+    public int getNumberOfBagsCanContain(String colour) {
+        return coloursCanContain.get(colour);
     }
 
 }
