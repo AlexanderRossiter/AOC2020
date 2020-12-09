@@ -122,7 +122,7 @@ public class InputGetter {
         try {
             String[] inputRaw = getInput(day, PATH).split(splitStr);
             for (String s : inputRaw) {
-                inputInt.add(Integer.parseInt(s));
+                inputInt.add(Integer.parseInt(s.replace(" ", "")));
             }
         }
         catch (Exception e) {
