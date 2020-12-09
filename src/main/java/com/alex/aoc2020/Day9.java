@@ -53,7 +53,7 @@ public class Day9 {
         List<Integer> contiguousSet;
         for (int startingIndex = 0; startingIndex < input.size(); startingIndex++) {
             int sum = 0;
-            int loopIdx = startingIndex+2;
+            int loopIdx = startingIndex+1;
             while (sum <= desiredSum) {
                 contiguousSet = new ArrayList<Integer>(input.subList(startingIndex, loopIdx+1));
                 sum = contiguousSet.stream().reduce(0, Integer::sum);
@@ -64,6 +64,6 @@ public class Day9 {
             }
         }
 
-        return new ArrayList<Integer>();
+        return new ArrayList<>();
     }
 }
