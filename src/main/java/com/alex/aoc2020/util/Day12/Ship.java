@@ -26,7 +26,6 @@ public class Ship {
     public void waypointSteer() {
         for (Action a : actionList) {
             followWaypointAction(a);
-            System.out.println(String.format("x-%d y-%d wpx-%d wpy-%d", x, y, waypointX, waypointY));
         }
     }
 
