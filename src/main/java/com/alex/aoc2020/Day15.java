@@ -28,16 +28,14 @@ public class Day15 {
 
 
     private static int playMemoryGame(int noRounds) {
-        int lastSpoken = input.get(input.size()-1);
-        int thisNumber;
+        int thisNumber = input.get(input.size()-1);
         for (int i = input.size(); i < noRounds; i++) {
-            thisNumber = numberPreviouslySpoken(lastSpoken)
-                    ? getDifferenceBetweenRepeatedNumbers(lastSpoken) : 0;
+            thisNumber = numberPreviouslySpoken(thisNumber)
+                    ? getDifferenceBetweenRepeatedNumbers(thisNumber) : 0;
 
-            lastSpoken = thisNumber;
             addNumberToHashMap(thisNumber, i);
         }
-        return lastSpoken;
+        return thisNumber;
     }
 
     private static void addNumberToHashMap(int n, int idx) {
