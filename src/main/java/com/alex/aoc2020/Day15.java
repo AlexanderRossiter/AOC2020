@@ -12,17 +12,17 @@ public class Day15 {
     private static HashMap<Integer, List<Integer>> lastTimeSpokenMap;
 
     public static void part1() {
+        initialiseHashMap();
         System.out.println(playMemoryGame(2020));
     }
 
     public static void part2() {
+        initialiseHashMap();
         System.out.println(playMemoryGame(30000000));
     }
 
     public static void main(String[] args) {
-        initialiseHashMap();
         part1();
-        initialiseHashMap();
         part2();
     }
 
