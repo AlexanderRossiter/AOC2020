@@ -31,11 +31,9 @@ public class Day15 {
         int lastSpoken = input.get(input.size()-1);
         int thisNumber;
         for (int i = input.size(); i < noRounds; i++) {
-            if (numberPreviouslySpoken(lastSpoken)) {
-                thisNumber = getDifferenceBetweenRepeatedNumbers(lastSpoken);
-            } else {
-                thisNumber = 0;
-            }
+            thisNumber = numberPreviouslySpoken(lastSpoken)
+                    ? getDifferenceBetweenRepeatedNumbers(lastSpoken) : 0;
+
             lastSpoken = thisNumber;
             addNumberToHashMap(thisNumber, i);
         }
