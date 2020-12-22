@@ -1,4 +1,4 @@
-package com.alex.aoc2020.util.Day15;
+package com.alex.aoc2020.util.Day16;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

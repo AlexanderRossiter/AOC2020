@@ -1,8 +1,7 @@
 package com.alex.aoc2020;
 
-import com.alex.aoc2020.util.Day15.Rule;
-import com.alex.aoc2020.util.Day15.RuleSet;
-import com.alex.aoc2020.util.Day15.Ticket;
+import com.alex.aoc2020.util.Day16.RuleSet;
+import com.alex.aoc2020.util.Day16.Ticket;
 import com.alex.aoc2020.util.InputGetter;
 
 import java.util.*;
