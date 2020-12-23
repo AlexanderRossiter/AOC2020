@@ -1,20 +1,30 @@
 package com.alex.aoc2020.util.Day17;
 
-import java.util.List;
+import java.util.Objects;
 
 public class ConwayCube {
     private final int x;
     private final int y;
     private final int z;
+    private final int w;
     private boolean isActive = false;
     private int surroundingActiveNodes = -1;
 
 
-    public ConwayCube(int x_, int y_, int z_, boolean active) {
+    public ConwayCube(int x_, int y_, int z_, int w_, boolean active) {
         x = x_;
         y = y_;
         z = z_;
+        w = w_;
         isActive = active;
+    }
+
+    public ConwayCube(int x_, int y_, int z_, boolean active) {
+        this(x_, y_, z_, 0, active);
+    }
+
+    public ConwayCube(int x_, int y_, int z_, int w_) {
+        this(x_, y_, z_, w_, false);
     }
 
     public ConwayCube(int x_, int y_, int z_) {
@@ -52,19 +62,9 @@ public class ConwayCube {
         surroundingActiveNodes = -1;
     }
 
-    public void countSurroundingActiveCubes(PocketDimension pd) {
-        int count = 0;
 
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                for (int k = -1; k <= 1; k++) {
-                    if (!(i == 0 && j == 0 && k == 0)) {
-                        count += pd.getConwayCubeAtLocation(x+i,y+j,z+k).isActive() ? 1 : 0;
-                    }
-                }
-            }
-        }
-        surroundingActiveNodes = count;
+    public void setSurroundingActiveNodes(int n) {
+        surroundingActiveNodes = n;
     }
 
     public int getX() {
@@ -78,4 +78,37 @@ public class ConwayCube {
     public int getZ() {
         return z;
     }
+
+    public int getW() {
+        return w;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y, z, w);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        // If the object is compared with itself then return true
+        if (o == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Complex or not
+          "null instanceof [type]" also returns false */
+        if (!(o instanceof ConwayCube)) {
+            return false;
+        }
+
+        // typecast o to Complex so that we can compare data members
+        ConwayCube c = (ConwayCube) o;
+
+        // Compare the data members and return accordingly
+        return x == c.getX() && y == c.getY() && z == c.getZ() && w == c.getW();
+    }
+
+
+
 }

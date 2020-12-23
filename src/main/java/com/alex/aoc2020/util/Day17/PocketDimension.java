@@ -1,12 +1,15 @@
 package com.alex.aoc2020.util.Day17;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class PocketDimension {
-    private Set<ConwayCube> conwayCubeSet = new HashSet<>();
+abstract class PocketDimension {
+    protected Set<ConwayCube> conwayCubeSet = new HashSet<>();
+    protected HashMap<ConwayCube, ConwayCube> conwayCubeConwayCubeHashMap = new HashMap<>();
+
 
     public PocketDimension(List<String> initialFlatRegionList) {
         try {
@@ -16,7 +19,7 @@ public class PocketDimension {
         }
     }
 
-    private void parseInitialFlatRegionList(List<String> initialFlatRegionList) throws Exception {
+    protected void parseInitialFlatRegionList(List<String> initialFlatRegionList) throws Exception {
         int nCol = initialFlatRegionList.get(0).length();
         int nRow = initialFlatRegionList.size();
 
@@ -33,31 +36,31 @@ public class PocketDimension {
         }
     }
 
+
     public void runNCycles(int n) {
         for (int i = 0; i < n; i++) {
+            System.out.println(String.format("Cycle number %d", i));
             runCycle();
         }
     }
 
-    private void runCycle() {
+    protected void runCycle() {
+        padConwayCubeSet();
         for (ConwayCube c : conwayCubeSet) {
-            c.countSurroundingActiveCubes(this);
+            conwayCubeConwayCubeHashMap.put(c, c);
         }
+
+        Set<ConwayCube> thisCycleConwayCubeSet = new HashSet<>(conwayCubeSet);
+        for (ConwayCube c : thisCycleConwayCubeSet) {
+            countSurroundingActiveCubes(c);
+        }
+        thisCycleConwayCubeSet.addAll(conwayCubeSet);
+        conwayCubeSet = new HashSet<>(thisCycleConwayCubeSet);
 
         for (ConwayCube c : conwayCubeSet) {
             c.update();
         }
-    }
 
-    public ConwayCube getConwayCubeAtLocation(int x, int y, int z) {
-        ConwayCube cube = conwayCubeSet.stream()
-                .filter(c -> c.getX() == x && c.getY() == y && c.getZ() == z)
-                .collect(Collectors.toList()).get(0);
-        if (cube == null) {
-            cube = new ConwayCube(x, y, z);
-            conwayCubeSet.add(cube);
-        }
-        return cube;
     }
 
     public int numberActiveCubes() {
@@ -66,4 +69,8 @@ public class PocketDimension {
                 .collect(Collectors.toSet())
                 .size();
     }
+
+    abstract void padConwayCubeSet();
+
+    abstract void countSurroundingActiveCubes(ConwayCube c);
 }
