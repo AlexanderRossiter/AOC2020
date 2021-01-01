@@ -67,13 +67,14 @@ public class Image {
         return sb.toString();
     }
 
-    public void removeTileBorders() {
+    public Image removeTileBorders() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 tileArr[i][j].removeBorder();
             }
         }
         generatePixelArr();
+        return this;
     }
 
     public long getCornerIdProduct() {

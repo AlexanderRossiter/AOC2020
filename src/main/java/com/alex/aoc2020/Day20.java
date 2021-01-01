@@ -21,25 +21,20 @@ public class Day20 {
     }
 
     public static void part2() {
-        Image img = new Image(input.stream()
+        Image img = tryImageArrange( new Image(input.stream()
                 .map(Tile::new)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList()))).removeTileBorders();
 
+        System.out.println(img.searchForSeaMonsters());
+    }
+
+    public static Image tryImageArrange(Image img) {
         try {
             img.arrange();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        img.removeTileBorders();
-        System.out.println(img.searchForSeaMonsters());
-        System.out.println(img);
-
-//        img.rotate(0);
-//        img.doFlipTypeSelf(2);
-//        System.out.println(img);
-
+        return img;
     }
 
     public static void main(String[] args) {
