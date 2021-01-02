@@ -135,7 +135,7 @@ public class Image {
 
         // Place first one, a corner.
         tileArr[0][0] =  tileMap.keySet().stream()
-                .map(id -> tileMap.get(id))
+                .map(tileMap::get)
                 .filter(t -> t.getNeighbours().size() == 2).collect(Collectors.toList()).get(0);
         usedTileIds.add(tileArr[0][0].getId());
 
@@ -192,7 +192,6 @@ public class Image {
     }
 
     private boolean alignTilesBackTracking(Tile[][] currentSolution, int row, int col, Tile[][] originalArr) {
-        System.out.println(String.format("Backtracking at row: %d, col: %d", row, col));
 
         // If we've finished.
         if (row == size-1 && col == size) {
@@ -204,6 +203,8 @@ public class Image {
             row++;
             col = 0;
         }
+        System.out.println(String.format("Backtracking at row: %d, col: %d", row, col));
+
 
         // Set this tile to it's original value.
         currentSolution[row][col] = originalArr[row][col];

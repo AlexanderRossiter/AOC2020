@@ -5,8 +5,8 @@ import java.util.List;
 
 public class AStar {
     private List<AStarNode> openSet = new ArrayList<AStarNode>();
-    private List<AStarNode> closedSet = new ArrayList<AStarNode>();
-    private List<AStarNode> nodes = new ArrayList<AStarNode>();
+    private final List<AStarNode> closedSet = new ArrayList<AStarNode>();
+    private final List<AStarNode> nodes = new ArrayList<AStarNode>();
     private AStarNode startingNode = new StartingAStarNode();
     private AStarNode finishingNode = new FinishingAStarNode();
 

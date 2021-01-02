@@ -24,7 +24,6 @@ public class Day20 {
         Image img = tryImageArrange( new Image(input.stream()
                 .map(Tile::new)
                 .collect(Collectors.toList()))).removeTileBorders();
-
         System.out.println(img.searchForSeaMonsters());
     }
 

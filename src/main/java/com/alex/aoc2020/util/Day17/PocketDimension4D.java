@@ -27,9 +27,7 @@ public class PocketDimension4D extends PocketDimension {
                 for (int k = minZ; k <= maxZ; k++) {
                     for (int w = minW; w <= maxW; w++) {
                         ConwayCube c = new ConwayCube(i,j,k,w);
-                        if (!conwayCubeSet.contains(c)) {
-                            conwayCubeSet.add(c);
-                        }
+                        conwayCubeSet.add(c);
 
                     }
                 }

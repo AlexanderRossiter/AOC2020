@@ -7,7 +7,7 @@ public class Ticket {
     private final List<Integer> values;
     private final RuleSet ruleSet;
     private List<Integer> invalidValues = new ArrayList<>();
-    private HashMap<Integer, Set<Integer>> rulesSatisfiedMap = new HashMap<>();
+    private final HashMap<Integer, Set<Integer>> rulesSatisfiedMap = new HashMap<>();
 
     public Ticket(List<String> values_, RuleSet rs) {
         values = values_.stream().map(Integer::parseInt).collect(Collectors.toList());

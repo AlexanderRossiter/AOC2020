@@ -7,7 +7,7 @@ public class Plane {
     private final List<Ticket> ticketList;
     private final int nCol = 8;
     private final int nRow = 128;
-    private boolean seatFull[][] = new boolean[nRow][nCol];
+    private final boolean[][] seatFull = new boolean[nRow][nCol];
 
     public Plane(List<Ticket> ticketList_) {
         ticketList = ticketList_;

@@ -11,7 +11,7 @@ public class Tile {
     private long id;
     private String asString;
     private final Set<Long> neighbours = new HashSet<>();
-    private Map<Integer, BorderDescription> borderDescriptionMap = new HashMap<>();
+    private final Map<Integer, BorderDescription> borderDescriptionMap = new HashMap<>();
 
     public Tile(String imageString) {
         try {

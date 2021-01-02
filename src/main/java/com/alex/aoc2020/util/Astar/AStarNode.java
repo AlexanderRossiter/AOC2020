@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AStarNode {
-    private List<AStarNode> neighbours = new ArrayList<AStarNode>();
+    private final List<AStarNode> neighbours = new ArrayList<AStarNode>();
     private int index;
     public final boolean isStart = false;
     public final boolean isEnd = false;

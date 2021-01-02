@@ -77,7 +77,7 @@ public class Computer {
                 return programAltered.getAccumulator();
             } else {
                 // Reset instructions.
-                programAltered = new Program(program.getInstructionStringList());;
+                programAltered = new Program(program.getInstructionStringList());
             }
         }
         return Integer.MAX_VALUE;

@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 
 public class Chip {
     private final List<String> instructions;
-    private Hashtable<String, String> memoryAddresses = new Hashtable<>();
+    private final Hashtable<String, String> memoryAddresses = new Hashtable<>();
 
     public Chip(List<String> instructionList) {
         instructions = instructionList;

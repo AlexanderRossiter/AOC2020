@@ -7,9 +7,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class RuleSet {
-    private List<Rule> ruleList;
-    private HashMap<Integer, Integer> valueToRuleMap = new HashMap<>();
-    private HashMap<Integer, Integer> ruleToValueMap = new HashMap<>();
+    private final List<Rule> ruleList;
+    private final HashMap<Integer, Integer> valueToRuleMap = new HashMap<>();
+    private final HashMap<Integer, Integer> ruleToValueMap = new HashMap<>();
 
 
     public RuleSet(List<String> rules) {
