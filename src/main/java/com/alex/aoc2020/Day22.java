@@ -6,9 +6,9 @@ import com.alex.aoc2020.util.InputGetter;
 import java.util.List;
 
 public class Day22 {
-    private static final InputGetter inputGetter = new InputGetter();
-    private static final String PATH = "/Users/ADR/Documents/AOC2020/src/main/resources/inputs";
-    private static final List<String> input = inputGetter.getInputAsList(22, PATH, "\n\n");
+    private static final List<String> input = new InputGetter().getInputAsList(22,
+            "/Users/ADR/Documents/AOC2020/src/main/resources/inputs",
+            "\n\n");
 
     public static void part1() {
         System.out.println(new Combat(input).playCombat());
