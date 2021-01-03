@@ -9,7 +9,7 @@ public class Day21 {
     private static final InputGetter inputGetter = new InputGetter();
     private static final String PATH = "/Users/ADR/Documents/AOC2020/src/main/resources/inputs";
     private static final List<String> input = inputGetter.getInputAsList(21, PATH, "\n");
-    private static Map<Set<String>, Set<String>> ingredientMap = new HashMap<>();
+    private static final Map<Set<String>, Set<String>> ingredientMap = new HashMap<>();
 
     public static void part1() {
         System.out.println(getNumberOfAppearancesOfSafeIngredients());
