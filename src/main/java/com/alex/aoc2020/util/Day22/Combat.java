@@ -23,7 +23,7 @@ public class Combat {
     public int playCombat() {
         int roundNo = 1;
         while (allPlayersHaveCards()) {
-            System.out.println(getRoundDetails(roundNo));
+            //System.out.println(getRoundDetails(roundNo));
             playRound();
             roundNo ++;
         }
