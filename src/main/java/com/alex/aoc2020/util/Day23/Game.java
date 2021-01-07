@@ -46,8 +46,8 @@ public class Game {
     public long playCups2(int nRounds) {
         makeFullNumberSet();
         for (int i = 0; i < nRounds; i++) {
-            if (i % 100 == 0) {
-                System.out.println(String.format("%f %% Complete.", ((float) i / (float) nRounds) * 100.));
+            if (i % 1000000 == 0) {
+                System.out.println(String.format("%3.2f %% Complete.", ((float) i / (float) nRounds) * 100.));
             }
 
             playCrabRound();
