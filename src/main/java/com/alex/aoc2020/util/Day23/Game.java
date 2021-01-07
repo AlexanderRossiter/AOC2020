@@ -121,8 +121,6 @@ public class Game {
                 c.setNextCupLabel(i + 1);
             }
             cupMap.put(i, c);
-
-
         }
         nCups = cupMap.size();
     }
