@@ -8,8 +8,8 @@ public class Day25 {
     private static final List<String> input = new InputGetter().getInputAsList(25,
             "/Users/ADR/Documents/AOC2020/src/main/resources/inputs",
             "\n");
-    private static long cardPublicKey = Long.parseLong(input.get(0));
-    private static long doorPublicKey = Long.parseLong(input.get(1));
+    private static final long cardPublicKey = Long.parseLong(input.get(0));
+    private static final long doorPublicKey = Long.parseLong(input.get(1));
 
     public static void part1() {
         System.out.println(getEncryptedKey( getLoopSize(7, cardPublicKey), doorPublicKey ));
