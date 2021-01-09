@@ -22,7 +22,6 @@ public class Day10 {
                         .map(JoltageAdapter::new)
                         .collect(Collectors.toList()));
 
-        System.out.println(dc.toString());
         System.out.println(dc.getNumberWithJoltageDifference(1) * dc.getNumberWithJoltageDifference(3));
     }
 
@@ -32,9 +31,7 @@ public class Day10 {
                         .map(JoltageAdapter::new)
                         .collect(Collectors.toList()));
 
-        //System.out.println(findNumberValidCombinations(dc).size());
-
-        getNumberValidChains(dc);
+        System.out.println(getNumberValidChains(dc));
     }
 
     public static void main(String[] args) {
@@ -42,7 +39,39 @@ public class Day10 {
         part2();
     }
 
-    public static int getNumberValidChains(JoltageAdapterDaisyChain daisyChain) {
+    public static long getNumberValidChains(JoltageAdapterDaisyChain daisyChain) {
+        List<Integer> gapBetweenRemovableAdapters = getGapBetweenRemovableAdapters(daisyChain);
+
+        int val = 0;
+        long count = 1;
+        for (Integer gapBetweenRemovableAdapter : gapBetweenRemovableAdapters) {
+            if (gapBetweenRemovableAdapter == 1) {
+                val += 1;
+            } else {
+                val += 1;
+                count *= findTotalNoCombinations(val);
+                val = 0;
+            }
+        }
+        if (val > 0) {
+            count *= findTotalNoCombinations(val+1);
+        } else {
+            count *= findTotalNoCombinations(1);
+        }
+        return count;
+    }
+    private static int findTotalNoCombinations(int val) {
+        if (val == 3) {
+            return 7; // 2^3 - 1
+        } else if (val == 2) {
+            return 4; // 2^2
+        } else if (val == 1) {
+            return 2; // 2^1
+        }
+        return 0;
+    }
+
+    private static List<Integer> getGapBetweenRemovableAdapters(JoltageAdapterDaisyChain daisyChain) {
         List<Integer> removableAdapterIndices = IntStream.range(1, daisyChain.size() - 1)
                 .filter(daisyChain::adapterIsRemovable)
                 .boxed()
@@ -50,22 +79,18 @@ public class Day10 {
         List<JoltageAdapter> removableAdapters = removableAdapterIndices.stream()
                 .map(daisyChain::getAdapterAtIndex)
                 .collect(Collectors.toList());
-        List<Integer> gapBetweenRemovableAdapters = IntStream.range(0, removableAdapters.size() - 1)
+        return IntStream.range(0, removableAdapters.size() - 1)
                 .map(i -> removableAdapters.get(i+1).getOutputJoltage() - removableAdapters.get(i).getOutputJoltage())
                 .boxed()
                 .collect(Collectors.toList());
-//        int count = 0;
-//
-//        count += (int) Math.pow(2, gapBetweenRemovableAdapters.stream().filter(i -> i > 3).count())-1;
-//        for (int i : gapBetweenRemovableAdapters) {
-//            if (i == 1) {
-//                factor += 1;
-//            }
-//        }
 
-        System.out.println(gapBetweenRemovableAdapters);
+    }
 
-        return gapBetweenRemovableAdapters.size();
+    static int factorial(int n){
+        if (n == 0)
+            return 1;
+        else
+            return(n * factorial(n-1));
     }
 
     public static Set<String> stupidMethodThatTakesTooLong(JoltageAdapterDaisyChain daisyChain) {

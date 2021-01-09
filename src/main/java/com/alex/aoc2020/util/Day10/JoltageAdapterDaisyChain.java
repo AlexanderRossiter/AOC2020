@@ -64,6 +64,7 @@ public class JoltageAdapterDaisyChain {
     @Override
     public String toString() {
         return daisyChain.stream()
-                .map(jc -> String.valueOf(jc.getOutputJoltage())).collect(Collectors.joining("-", "{", "}"));
+                .map(jc -> String.valueOf(jc.getOutputJoltage()))
+                .collect(Collectors.joining("-", "{", "}"));
     }
 }

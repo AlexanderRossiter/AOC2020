@@ -14,4 +14,9 @@ public class JoltageAdapter {
     public boolean canAcceptInputJoltage(int inputJoltage) {
         return (inputJoltage >= outputJoltage-3 && inputJoltage <= outputJoltage-1);
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(outputJoltage);
+    }
 }
