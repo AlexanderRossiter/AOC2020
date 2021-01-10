@@ -2,12 +2,8 @@ package com.alex.aoc2020;
 
 import com.alex.aoc2020.util.InputGetter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Day13 {
     private static final InputGetter inputGetter = new InputGetter();
@@ -17,58 +13,100 @@ public class Day13 {
 
 
     public static void part1() {
-        List<Bus> buses = parseBusses(input.get(1))
-                .stream()
-                .map(Bus::new)
-                .collect(Collectors.toList());
-
-        Bus myBus = buses.get(IntStream.range(0, buses.size())
-                .boxed()
-                .min(Comparator.comparingInt(buses
-                        .stream()
-                        .map(b -> b.getEarliestTimeAfter(myTimestamp))
-                        .map(ts -> ts - myTimestamp).collect(Collectors.toList())::get))
-                .get());
-
-
-
-        System.out.println((myBus.getEarliestTimeAfter(myTimestamp)-myTimestamp) * myBus.getBusId());
-
-    }
-
-    public static void part2() throws Exception {
-        List<String> busTimestampList = Arrays.asList(input.get(1).split(","));
-        List<Bus> buses = new ArrayList<>();
-
-        int baseBusId = -1;
-        for (int i = 0; i < busTimestampList.size(); i++) {
-            if (!busTimestampList.get(i).equals("x")) {
-                buses.add(new Bus(busTimestampList.get(i)));
-                if (i == 0) {
-                    baseBusId = buses.get(0).getBusId();
-                }
-                buses.get(buses.size() - 1).setRequiredDeltaTimestamp(i, baseBusId);
+        List<Integer> busIdList = parseBuses(input.get(1));
+        int minWaitTime = Integer.MAX_VALUE;
+        int tmpWaitTime;
+        int myBusId = -1;
+        for (int busId : busIdList) {
+            tmpWaitTime = getEarliestTimeAfter(busId, myTimestamp) - myTimestamp;
+            if (tmpWaitTime < minWaitTime) {
+                minWaitTime = tmpWaitTime;
+                myBusId = busId;
             }
         }
-
-//        Bus b1 = new Bus("7");
-//        Bus b2 = new Bus("9");
-//
-//        b2.setRequiredDeltaTimestamp(10, b1.getBusId());
-//
-//        for (int i = 0; i < 25; i++) {
-//            int a = (lcm(b1.getBusId(), b2.getBusId()) * i + b2.getnCorrectDelta() + b2.extraN) * b2.getBusId();
-//            System.out.println((a - (((a-b2.extraN*b2.getBusId()) / b1.getBusId()) * b1.getBusId())));// + b2.getBusId() * b2.extraN);
-//        }
-
-
-
+        System.out.println(myBusId * minWaitTime);
     }
 
-    private static List<String> parseBusses(String busString) {
+    public static void part2() {
+        HashMap<Long, Long> busIdRemainderMap = getIdRemainderMap();
+        System.out.println(chineseRemainder(new ArrayList<>(busIdRemainderMap.values()),
+                new ArrayList<>(busIdRemainderMap.keySet())));
+    }
+
+    public static void main(String[] args) {
+        part1();
+        part2();
+    }
+
+    private static int getEarliestTimeAfter(int busId, int timestamp) {
+        if (timestamp % busId == 0) {
+            return timestamp;
+        } else {
+            return busId * (timestamp / busId + 1);
+        }
+    }
+
+    public static long chineseRemainder(List<Long> remainders, List<Long> divisors) {
+        long prod = divisors.stream().reduce((long) 1, (a, b) -> a * b);
+
+        long sum = 0;
+        long Ni;
+        for (int i = 0; i < remainders.size(); i++) {
+            Ni = prod / divisors.get(i);
+            sum += remainders.get(i) * gcdExtended(Ni, divisors.get(i)).get(1) * Ni;
+        }
+
+        return ((sum % prod) + prod) % prod;
+    }
+
+    public static List<Long> gcdExtended(long a, long b)
+    {
+        // Base Case
+        long x;
+        long y;
+        if (a == 0)
+        {
+            x = 0;
+            y = 1;
+            return new ArrayList<>(Arrays.asList(b, x, y));
+        }
+
+        List<Long> gcd = gcdExtended(b%a, a);
+
+        // Update x and y using results of recursive
+        // call
+        x = gcd.get(2) - (b/a) * gcd.get(1);
+        y = gcd.get(1);
+
+        return new ArrayList<>(Arrays.asList(gcd.get(0), x, y));
+    }
+
+    private static HashMap<Long, Long> getIdRemainderMap() {
+        List<Long> busIdList = parseBuses2(input.get(1));
+        HashMap<Long, Long> busIdRemainderMap = new HashMap<>();
+
+        for (int i = 0; i < busIdList.size(); i++) {
+            if (!(busIdList.get(i) == -1)) {
+                busIdRemainderMap.put(busIdList.get(i),
+                        (busIdList.get(i) - i) + (i / busIdList.get(i)) * busIdList.get(i));
+            }
+        }
+        return busIdRemainderMap;
+    }
+
+    private static List<Integer> parseBuses(String busString) {
         return Arrays.stream(busString.split(","))
                 .filter(s -> !s.equals("x"))
+                .map(Integer::parseInt)
                 .collect(Collectors.toList());
+    }
+
+    private static List<Long> parseBuses2(String busString) {
+        return Arrays.stream(busString.split(","))
+                .map(s -> s.equals("x") ? "-1" : s)
+                .map(Long::parseLong)
+                .collect(Collectors.toList());
+        //return Arrays.asList(busString.split(","));
     }
 
     public static int gcd(int a, int b) {
@@ -81,75 +119,28 @@ public class Day13 {
         return (a / gcd(a, b)) * b;
     }
 
-    public static void main(String[] args) {
-        part1();
-        try {
-            part2();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
-}
+    // Method for the original method that wasn't going to work. Left in as they're kinf of interesting...
+    private static Integer[] getFactorWithCorrectDifference(int deltaTimestamp, int baseBusId, int busId) {
+        int n = deltaTimestamp % busId;  // This takes care of if there are several buses in between.
+        int extraN = deltaTimestamp / busId; // The extra multiples if deltaTimestamp > busId.
 
-class Bus {
-    private final int busId;
-    private int requiredDeltaTimestamp;
-    private int nCorrectDelta;
-    public int extraN = 0;
-    public List<Integer> validTimestamps = new ArrayList<>();
-    public Bus(String busId_) {
-        busId = Integer.parseInt(busId_);
-    }
-
-    public int getEarliestTimeAfter(int timeStamp) {
-        if (timeStamp % busId == 0) {
-            return timeStamp;
-        } else
-            return busId * (timeStamp / busId + 1);
-    }
-
-    public int getBusId() {
-        return busId;
-    }
-
-    public void setRequiredDeltaTimestamp(int deltaTimestamp, int baseBusID) throws Exception {
-        requiredDeltaTimestamp = deltaTimestamp;
-
-        int n = deltaTimestamp % busId;
-        extraN = deltaTimestamp / busId;
-
-
-        for(int i = 1; i <= Day13.lcm(busId, baseBusID); i++) {
-            if ((i * busId) % baseBusID == n || (i * busId) % baseBusID == 0) {
-                nCorrectDelta = i;
-                return;
+        for(int i = 1; i <= lcm(busId, baseBusId); i++) {
+            if ((i * busId) % baseBusId == n || (i * busId) % baseBusId == 0) {
+                int lcmVal = lcm(busId, baseBusId);
+                int multVal = lcmVal == busId ? 0 : i;
+                //lcmVal = lcmVal == busId ? 0 : lcmVal;
+                return new Integer[]{multVal, extraN, lcmVal}; // This repeats with n via (lcm * n + (i+extraN)*busId)
             }
         }
-        //System.out.println(deltaTimestamp);
-        throw new Exception("No valid deltaT");
-
+        return new Integer[]{-1,-1, -1};
     }
 
-    public int getnCorrectDelta() {
-        return nCorrectDelta;
+    public static Long getNthTimestampWithCorrectDifference(int n, int busId, Integer[] differenceInformation) {
+        return ((long) differenceInformation[2] * (long) n
+                + ((long) differenceInformation[0] + (long) differenceInformation[1]) * (long) busId);
     }
-
-    public int getRequiredDeltaTimestamp() {
-        return requiredDeltaTimestamp;
-    }
-
-    public int getNthTimestampWithCorrectDifference(int n, int baseBusId) {
-        return (Day13.lcm(busId, baseBusId) * n + getnCorrectDelta() + extraN) * getBusId();
-    }
-
-    public void fillValidTimestampsUpTo(int n, int baseBusId) {
-        for (int i = 1; i < n; i++) {
-            validTimestamps.add(getNthTimestampWithCorrectDifference(i, baseBusId));
-        }
-    }
-
 
 
 

@@ -61,6 +61,7 @@ public class Day10 {
         return count;
     }
     private static int findTotalNoCombinations(int val) {
+        // There are never more than three removable ones in a row.
         if (val == 3) {
             return 7; // 2^3 - 1
         } else if (val == 2) {
